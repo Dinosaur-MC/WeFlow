@@ -649,6 +649,95 @@
       }
     }
   }
+
+  .date-picker-modal {
+    background: var(--card-bg);
+    padding: 28px 32px;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    min-width: 400px;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 20px;
+    }
+
+    .date-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .date-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      label {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+
+      input[type="date"] {
+        padding: 10px 14px;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 14px;
+        color: var(--text-primary);
+        outline: none;
+        transition: border-color 0.2s;
+
+        &:focus {
+          border-color: var(--primary);
+        }
+
+        &::-webkit-calendar-picker-indicator {
+          cursor: pointer;
+          filter: var(--icon-filter, none);
+        }
+      }
+    }
+
+    .date-picker-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+
+      button {
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .cancel-btn {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+
+        &:hover {
+          background: var(--bg-hover);
+        }
+      }
+
+      .confirm-btn {
+        background: var(--primary);
+        color: #fff;
+        border: none;
+
+        &:hover {
+          background: var(--primary-hover);
+        }
+      }
+    }
+  }
 }
 
 @keyframes exportSpin {

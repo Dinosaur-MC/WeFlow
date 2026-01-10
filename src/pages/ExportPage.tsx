@@ -34,7 +34,8 @@ function ExportPage() {
   const [isExporting, setIsExporting] = useState(false)
   const [exportProgress, setExportProgress] = useState({ current: 0, total: 0, currentName: '' })
   const [exportResult, setExportResult] = useState<ExportResult | null>(null)
-  
+  const [showDatePicker, setShowDatePicker] = useState(false)
+
   const [options, setOptions] = useState<ExportOptions>({
     format: 'chatlab',
     dateRange: {
@@ -281,7 +282,7 @@ function ExportPage() {
                 <div className="date-range">
                   <Calendar size={16} />
                   <span>{formatDate(options.dateRange.start)} - {formatDate(options.dateRange.end)}</span>
-                  <button className="change-btn">
+                  <button className="change-btn" onClick={() => setShowDatePicker(true)}>
                     <ChevronDown size={14} />
                   </button>
                 </div>
@@ -365,6 +366,57 @@ function ExportPage() {
               )}
               <button className="close-btn" onClick={() => setExportResult(null)}>
                 关闭
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 日期选择弹窗 */}
+      {showDatePicker && (
+        <div className="export-overlay" onClick={() => setShowDatePicker(false)}>
+          <div className="date-picker-modal" onClick={e => e.stopPropagation()}>
+            <h3>选择时间范围</h3>
+            <div className="date-inputs">
+              <div className="date-input-group">
+                <label>开始日期</label>
+                <input
+                  type="date"
+                  value={options.dateRange?.start.toISOString().split('T')[0] || ''}
+                  onChange={e => {
+                    const newDate = new Date(e.target.value)
+                    if (options.dateRange) {
+                      setOptions({
+                        ...options,
+                        dateRange: { ...options.dateRange, start: newDate }
+                      })
+                    }
+                  }}
+                />
+              </div>
+              <div className="date-input-group">
+                <label>结束日期</label>
+                <input
+                  type="date"
+                  value={options.dateRange?.end.toISOString().split('T')[0] || ''}
+                  onChange={e => {
+                    const newDate = new Date(e.target.value)
+                    if (options.dateRange) {
+                      setOptions({
+                        ...options,
+                        dateRange: { ...options.dateRange, end: newDate }
+                      })
+                    }
+                  }}
+                />
+              </div>
+            </div>
+            <div className="date-picker-actions">
+              <button className="cancel-btn" onClick={() => setShowDatePicker(false)}>
+                取消
+              </button>
+              <button className="confirm-btn" onClick={() => setShowDatePicker(false)}>
+                确定
               </button>
             </div>
           </div>
